@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiudian.mapper.KefangMapper">
+
+	
+	
+	<select id="findKefangList" 
+		resultType="Kefang">
+		select * from kefang 
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultType="Kefang">
+		select * from kefang u
+		<where>
+			  <if test="name!=null and name!=''">
+			   and u.name= #{name}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryKefangById" parameterType="int" resultType="Kefang">
+		select * from kefang where id=${value}
+	</select>
+	<!-- 添加客房  -->
+	<insert id="insertKefang" useGeneratedKeys="true" keyProperty="id" parameterType="Kefang">
+		insert into kefang
+		(name,type,msg,pic,money,num)
+		values
+		(#{name},#{type},#{msg},#{pic},#{money},#{num});
+	</insert>
+	<!-- 修改客房  -->
+	<update id="updateKefang" parameterType="Kefang" >
+		update kefang set
+		name=#{name},msg=#{msg},type=#{type},pic=#{pic},money=#{money},num=#{num}
+		where
+		id=#{id}	
+	</update>
+	
+	<delete id="deleteKefang" parameterType="int">
+	    delete from  kefang where id=${value}
+	</delete>
+
+</mapper>

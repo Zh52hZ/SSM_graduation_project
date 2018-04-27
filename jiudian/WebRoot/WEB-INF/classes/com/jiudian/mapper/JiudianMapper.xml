@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiudian.mapper.JiudianMapper">
+
+	
+	
+	<select id="findJiudianList" 
+		resultType="Jiudian">
+		select * from shiyainfo 
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultType="Jiudian">
+		select * from shiyainfo u
+		<where>
+			 
+		</where>
+	</select>
+	
+	
+	<select id="queryJiudianById" parameterType="int" resultType="Jiudian">
+		select * from shiyainfo where id=${value}
+	</select>
+
+	<insert id="insertJiudian" useGeneratedKeys="true" keyProperty="id" parameterType="Jiudian">
+		insert into shiyainfo
+		(msg)
+		values
+		(#{msg});
+	</insert>
+	
+	<update id="updateJiudian" parameterType="Jiudian" >
+		update shiyainfo set
+		msg=#{msg}
+		where
+		id=#{id}	
+	</update>
+	
+	<delete id="deleteJiudian" parameterType="int">
+	    delete from  shiyainfo where id=${value}
+	</delete>
+
+</mapper>

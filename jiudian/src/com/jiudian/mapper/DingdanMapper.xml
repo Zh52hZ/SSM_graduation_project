@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiudian.mapper.DingdanMapper">
+
+	
+	<!-- 查询所有 -->
+	<select id="findDingdanList" 
+		resultType="Dingdan">
+		select * from dingdan 
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultType="Dingdan">
+		select u.*,b.name uname from dingdan u left join loginuser b on u.uid = b.id
+		<where>
+			<if test="uid != 0">
+			   and u.uid= #{uid} 
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryDingdanById" parameterType="int" resultType="Dingdan">
+		select * from dingdan where id=${value}
+	</select>
+
+	<insert id="insertDingdan" useGeneratedKeys="true" keyProperty="id" parameterType="Dingdan">
+		insert into dingdan
+		(bid,type,money,time,name,uid,state,rzrq,lkrq)
+		values
+		(#{bid},#{type},#{money},#{time},#{name},#{uid},#{state},#{rzrq},#{lkrq});
+	</insert>
+	
+	<update id="updateDingdan" parameterType="Dingdan" >
+		update dingdan set
+		money=#{money},name=#{name},rzrq=#{rzrq},lkrq=#{lkrq}
+		where
+		bid=#{bid}	
+	</update>
+	
+	<update id="qxDingdan" parameterType="Dingdan" >
+		update dingdan set
+		state=#{state}
+		where
+		id=#{id}	
+	</update>
+	
+	<delete id="deleteDingdan" parameterType="int">
+	    delete from  dingdan where id=${value}
+	</delete>
+
+</mapper>

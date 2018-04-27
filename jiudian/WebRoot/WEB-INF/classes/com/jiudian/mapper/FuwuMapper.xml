@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiudian.mapper.FuwuMapper">
+
+	
+	
+	<select id="findFuwuList" 
+		resultType="Fuwu">
+		select * from service 
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultType="Fuwu">
+		select * from service u
+		<where>
+			 <if test="name!=null and name!=''">
+			   and u.name= #{name}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryFuwuById" parameterType="int" resultType="Fuwu">
+		select * from service where id=${value}
+	</select>
+
+	<insert id="insertFuwu" useGeneratedKeys="true" keyProperty="id" parameterType="Fuwu">
+		insert into service
+		(name,msg,money,pic,num)
+		values
+		(#{name},#{msg},#{money},#{pic},#{num});
+	</insert>
+	
+	<update id="updateFuwu" parameterType="Fuwu" >
+		update service set
+		name=#{name},msg=#{msg},money=#{money} ,pic=#{pic},num=#{num}
+		where
+		id=#{id}	
+	</update>
+	
+	<delete id="deleteFuwu" parameterType="int">
+	    delete from service where id=${value}
+	</delete>
+
+</mapper>
